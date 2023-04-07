@@ -1,8 +1,6 @@
 <h1 align="center">Hi 👋, I'm Cole</h1>
 <h3 align="center">Persuing a BS in computer science</h3>
 
-- 🔭 I’m currently working on [NIT machine learning](https://github.com/ColeH02/FlappyBirdML)
-
 - 📫 How to reach me **colehausman.com**
 
 <h3 align="left">Connect with me:</h3>
