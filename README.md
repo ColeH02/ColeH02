@@ -45,7 +45,7 @@ const cole = {
     currentFocus: "Learning to use Kotlin with React",
     funFact: "Hoisting is a blessing",
     aboutMe:[
-      "I'm a junior persuing a BS in computer science",
+      "I'm a senior persuing a BS in computer science",
       "Occasional hackathon participant",
       "Dedicated developer who loves projects",
       "Currently studying machine learning",
