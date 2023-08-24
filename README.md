@@ -20,6 +20,7 @@ With npm installed run: `npx cole_hausman`\
 
 ![Leetcode Stats](https://leetcard.jacoblin.cool/ColeHausman)
 
+^Future problems have to go on my other account, this is perfect
 
   
 </td>
