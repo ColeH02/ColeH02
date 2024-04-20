@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const TOKEN = process.env.GITHUB_TOKEN;
+const TOKEN = process.env.AUTH_TOKEN;
 const query = `
 query($userName:String!) {
   user(login: $userName){
