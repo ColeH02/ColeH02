@@ -1,5 +1,5 @@
 <div style="width: 100%;">
-  <img src="cole.svg" style="width: 100%; display: block;" alt="Click to see the source">
+  <img src="build-dir/github-contributions-gol.svg" style="width: 100%; display: block;" alt="Click to see the source">
 </div>
 
 <div style="width: 100%;">
