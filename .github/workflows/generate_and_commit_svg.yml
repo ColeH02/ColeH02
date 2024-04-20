@@ -28,6 +28,8 @@ jobs:
         
       - name: Run JavaScript to generate SVG
         run: node generateSVG.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Commit and push if changes
         run: |
@@ -37,4 +39,4 @@ jobs:
           git commit -m "Automated SVG update" -a || echo "No changes to commit"
           git push
         env:
-          AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
