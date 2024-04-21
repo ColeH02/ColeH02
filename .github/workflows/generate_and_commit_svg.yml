@@ -31,25 +31,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Find and set the SVG filename
-        id: svgfile
-        run: |
-          SVG_FILE=$(ls build-dir/github-contributions-gol-*.svg | sort -r | head -n 1)
-          echo "Found SVG file: $SVG_FILE"
-          echo "::set-output name=SVG_FILE::${SVG_FILE}"
-
-      - name: Update README
-        run: |
-          SVG_FILE="${{ steps.svgfile.outputs.SVG_FILE }}"
-          SVG_PATH=$(basename $SVG_FILE)
-          sed -i "s|build-dir/github-contributions-gol-*.svg|build-dir/$SVG_PATH|g" README.md
-
       - name: Commit and push if changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git diff --quiet && git diff --staged --quiet || (git add README.md build-dir/*.svg; git commit -m "Automated SVG update"; git push)
+          git add build-dir/github-contributions-gol.svg
+          git commit -m "Automated SVG update" -a || echo "No changes to commit"
+          git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       
