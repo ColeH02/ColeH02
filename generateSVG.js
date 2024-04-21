@@ -1,9 +1,8 @@
 import { retrieveContributionData } from './github_contributions.js'; 
 import fs from 'fs';
-import { writeFile } from 'fs';  
-// GitHub username
-const userName = 'ColeHausman';
-const generations = 90;
+
+const userName = 'ColeHausman'; // GitHub username
+const generations = 90; // Number of generations to generate
 
 function getCellColor(contributionCount) {
     if (contributionCount > 0 && contributionCount < 5) return 1;
@@ -22,14 +21,13 @@ function nextGeneration(contributionMatrix) {
 
         for (let m = 0; m < N; m++) {
             let aliveNeighbours = 0;
-            let contributionSum = 0;
             let neighbors = [];
 
             for (let i = -1; i <= 1; i++) {
                 for (let j = -1; j <= 1; j++) {
                     let ni = l + i;
                     let nj = m + j;
-                    if (ni >= 0 && ni < M && nj >= 0 && nj < N) {
+                    if (ni >= 0 && ni < M && nj >= 0 && nj < contributionMatrix[ni].length) { // Check that nj is valid for row ni
                         let neighborCount = contributionMatrix[ni][nj].contributionCount;
                         aliveNeighbours += neighborCount > 0 ? 1 : 0;
                         if (neighborCount > 0) {
@@ -54,28 +52,36 @@ function nextGeneration(contributionMatrix) {
     return future;
 }
 
+
 function determineNewCellCount(neighbors) {
-    const colorCount = new Array(5).fill(0); // Indexes 1-4 for colors
+    const colorCount = new Array(5).fill(0);
     neighbors.forEach(color => {
         colorCount[color]++;
     });
 
+    // Check for the presence of a majority color with exactly two neighbors
     const majorityColor = colorCount.findIndex(count => count === 2);
-    if (majorityColor !== -1) return majorityColor * 5 - 1; 
+    if (majorityColor !== -1) return majorityColor * 5 - 1;
 
-    // If no majority, return the contributionCount for the fourth color
-    return 19;
+    // If no majority, find the color that is not present in the 3-way tie
+    const allColors = [1, 2, 3, 4]; // All possible colors
+    const missingColor = allColors.find(color => colorCount[color] === 0);
+
+    if (missingColor !== undefined) {
+        return missingColor * 5 - 1;
+    } else {
+        // If no color is completely missing, return a default
+        return 15;
+    }
 }
 
 function createContributionMatrix(data, resetContributions = false) {
     const weeksData = data.data.user.contributionsCollection.contributionCalendar.weeks;
     const matrix = [];
 
-    // Iterate through each week and fill the matrix with contribution data
     weeksData.forEach((week, weekIndex) => {
-        const weekArray = []; // Start with an empty array for the week
+        const weekArray = []; 
 
-        // Fill the array with contribution data for each day
         week.contributionDays.forEach(day => {
             weekArray.push({
                 contributionCount: resetContributions ? 0 : day.contributionCount, // Set to 0 if resetContributions is true
@@ -83,14 +89,8 @@ function createContributionMatrix(data, resetContributions = false) {
             });
         });
 
-        // Add the week array to the matrix
         matrix.push(weekArray);
     });
-
-    // Optionally ensure the matrix has 53 weeks, even if some are empty or partially empty
-    while (matrix.length < 53) {
-        matrix.push([]); // Add empty arrays for missing weeks
-    }
 
     return matrix;
 }
@@ -100,7 +100,6 @@ function lightenColor(hex, percent) {
     if (hex === '#161b22'){
         return hex;
     }
-    // Percent should be given as a decimal (e.g., 10% = 0.1)
     const num = parseInt(hex.slice(1), 16),
           amt = Math.round(2.55 * percent),
           R = (num >> 16) + amt,
@@ -114,13 +113,13 @@ function getColor(contributionCount) {
     if (contributionCount === 0) {
         return '#161b22';  // No contributions - gray
     } else if (contributionCount >= 15) {
-        return '#3ad352';  // Most contributions - lightest green
+        return '#39d1d3';  // Most contributions - lightest blue
     } else if (contributionCount >= 10) {
-        return '#25a541';  // High contributions - lighter green
+        return '#2570a5';  // High contributions - lighter blue
     } else if (contributionCount >= 5) {
-        return '#006e32';  // Moderate contributions - medium green
+        return '#00466e';  // Moderate contributions - medium blue
     } else {
-        return '#0e4429';  // Fewest contributions (but not zero) - darkest green
+        return '#0d3344';  // Fewest contributions (but not zero) - darkest blue
     }
 }
 
@@ -187,8 +186,6 @@ function generateAnimatedSVGCM(contributionMatrices) {
     svgContent += `<text x="${textMoreX}" y="${legendY}" class="legend-label">More</text>`;
 
 
-
-
     let lastMonth = -1; // Reset last month for new animation
 
     // Add month and day cells with animations
@@ -215,7 +212,12 @@ function generateAnimatedSVGCM(contributionMatrices) {
 
     // Add month and day cells with animations
     for (let weekIndex = 0; weekIndex < maxWeeks; weekIndex++) {
-        for (let dayIndex = 0; dayIndex < 7; dayIndex++) { // Assumes 7 days per week
+        for (let dayIndex = 0; dayIndex < 7; dayIndex++) { 
+            // Only proceed if the day is present in at least one matrix
+            const dayPresent = contributionMatrices.some(matrix => matrix[weekIndex] && matrix[weekIndex][dayIndex]);
+            if (!dayPresent) {
+                continue; // Skip rendering this cell if no data
+            }
             const x = weekIndex * (cellSize + gap) + leftMargin;
             const y = dayIndex * (cellSize + gap) + topMargin;
             svgContent += `<rect x="${x}" y="${y}" width="${cellSize - strokeWidth}" height="${cellSize - strokeWidth}" stroke-width="${strokeWidth}" rx="${cornerRadius}" ry="${cornerRadius}" class="day-cell">`;
