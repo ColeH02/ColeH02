@@ -252,15 +252,19 @@ function generateAnimatedSVGCM(contributionMatrices) {
     }
     gens.push(...Array(4).fill(reset));
     gens.push(grid);
-    const svgAnimated = generateAnimatedSVGCM(gens);
-    // Write SVG
-    fs.writeFile('./build-dir/github-contributions-gol.svg', svgAnimated, (err) => {
+
+    const timestamp = new Date().getTime();
+    const filename = `github-contributions-gol-${timestamp}.svg`;
+    const filePath = path.join('./build-dir', filename);
+
+    // Write SVG with unique filename
+    fs.writeFile(filePath, svgAnimated, (err) => {
         if (err) {
-          console.error('Error writing SVG file:', err);
+            console.error('Error writing SVG file:', err);
         } else {
-          console.log('SVG file has been saved.');
+            console.log(`SVG file has been saved as ${filename}.`);
         }
-      });
+    });
   })
   .catch(error => {
     console.error('Failed to retrieve data:', error);
