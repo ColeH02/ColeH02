@@ -1,60 +1,17 @@
 <div style="width: 100%;">
-  <img src="cole.svg" style="width: 100%; display: block;" alt="Click to see the source">
+  <img src="build-dir/github-contributions-gol.svg" style="width: 100%; display: block;" alt="Click to see the source">
 </div>
 
-<div style="width: 100%;">
-<table>
-<tr>
-<th>Programming</th>
-<th>About Me</th>
-</tr>
-<tr>
-<td>
+### Connect with me:
+`npx cole_hausman`
 
-### Connect with me in the terminal  
-With npm installed run: `npx cole_hausman`\
-<br />
-<br />
-
-![My Skills](https://skillicons.dev/icons?i=python,js,java,nodejs,c,figma,tensorflow,git,github&theme=dark)
-
-![Leetcode Stats](https://leetcard.jacoblin.cool/ColeHausman)
-
-^Future problems have to go on my other account, this is perfect
-
-  
-</td>
-<td>
-
-```JavaScript
-const cole = {
-    pronouns: "He" | "Him",
-    code: [Javascript, Python, Java, C],
-    askMeAbout: ["tech", "computers", "mechanical keyboards"],
-    technologies: {
-        backEnd: {
-            js: [Node],
-            java: [Kotlin]
-        },
-        frontEnd: {
-            js: [Go, React],
-        },
-        databases: [Mongo, MySql],
-        misc: ["Processing", "Tensorflow", "selenium"]
-    },
-    currentFocus: "Learning to use Kotlin with React",
-    funFact: "Hoisting is a blessing",
-    aboutMe:[
-      "I'm a senior persuing a BS in computer science",
-      "Occasional hackathon participant",
-      "Dedicated developer who loves projects",
-      "Currently studying machine learning",
-      "Design enthusiast"
-    ]
-};
-```
-
-</td>
-</tr>
-</table>
-</divr>
+### Skills
+![Rust](https://img.shields.io/badge/rust-%23000000.svg?style=for-the-badge&logo=rust&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![C](https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white)
+![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white)
+![R](https://img.shields.io/badge/r-%23276DC3.svg?style=for-the-badge&logo=r&logoColor=white)
+![LaTeX](https://img.shields.io/badge/latex-%23008080.svg?style=for-the-badge&logo=latex&logoColor=white)
+![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=for-the-badge&logo=markdown&logoColor=white)
